@@ -6,9 +6,10 @@ public class main {
 		arvoreGrafo grafo = new arvoreGrafo();
 		
 		
-		/*grafo.mostrar();
-		grafo.Gerar(0);
-		grafo.mostrar();*/
+		//grafo.mostrar();
+		grafo.Gerar(9, null, false);
+		TNojo pai = grafo.getPai();
+		pai.printAll();
 
 	}
 
