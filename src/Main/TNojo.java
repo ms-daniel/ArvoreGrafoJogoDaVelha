@@ -9,9 +9,8 @@ public class TNojo {
 	private int maxSons;
 	private boolean terminal;
 	
-	public TNojo(TNojo pai, int filhos, boolean finau, char nojo[][], int number) {
-		this.myNumber += ".";
-		this.myNumber += number;
+	public TNojo(TNojo pai, int filhos, boolean finau, char nojo[][], String number) {
+		this.myNumber = number;
 		
 		this.pai = pai;
 		saveChar(nojo);
@@ -61,6 +60,18 @@ public class TNojo {
 		}
 	}
 	
+	public String getMeString() {
+		String me = myNumber + "\n";
+		
+		for(int i = 0; i < 3; i++) { //percorrer a matriz de caracteres
+			for(int j = 0; j < 3; j++) {
+				me += this.no[i][j] + "|";
+			}
+			me += "\n";
+		}
+		return me;
+	}
+	
 	public void printFilhos() {
 		System.out.println(maxSons);
 	}
@@ -82,11 +93,19 @@ public class TNojo {
 		System.out.println(myNumber);
 	}
 	
+	public String getMyNumber() {
+		return myNumber;
+	}
+	
 	public char[][] getMatriz(){
 		return this.no;
 	}
 	
 	public TNojo getMySon(int index) {
 		return sons[index];
+	}
+	
+	public int qtSons() {
+		return sons.length;
 	}
 }

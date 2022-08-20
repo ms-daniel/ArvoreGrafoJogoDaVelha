@@ -1,49 +1,71 @@
 package Main;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class arvoreGrafo {
 	private int number = 0;
-	private char Symbol = 'X';
+	private String Symbol = "O";
 	private int max = 9;
-	private char[][] no = 	{{'0','0','0'},
-							{'0','0','0'},
-							{'0','0','0'}}
+	private char[][] no = 	{{'.','.','.'},
+							{'.','.','.'},
+							{'.','.','.'}}
 	;
-	private TNojo pai = new TNojo(null, 9, false, no, 0); //define the root 
+	private TNojo pai = new TNojo(null, 9, false, no, ""); //define the root 
 	private TNojo filhoAtual;
 	
-	public void Gerar(int nivel, TNojo Atual, boolean change) {
-		saveChar();
+	private static FileWriter arq;
+	private static PrintWriter gravarArq;
+	
+	public void createArq() {
+		try {
+			arq = new FileWriter("arquivo.txt");
+			gravarArq = new PrintWriter(arq);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public void closeArq() {
+		try {
+			arq.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public synchronized void Gerar(int nivel, TNojo Atual, boolean change, char symbol) {
 		number = 0;
 		if(change) {
 			pai = Atual;
+			saveChar();
 		}
-		
-		//nivel = max-1;
-		//while(nivel != 7) { //rodar enquanto houver estados pra gerar
 			for(int i = 0; i < 3; i++) { //percorrer a matriz de caracteres
 				for(int j = 0; j < 3; j++) {
 					if(no[i][j] != 'X' && no[i][j] != 'O') {
-						no[i][j] = Symbol;
+						no[i][j] = symbol;
 						
-						pai.addSon(new TNojo(pai,nivel-1,verificaGanhador(), no, number+1));
-						System.out.println(number);
-						//Gerar(max, pai.getMySon(number), true);
+						
+						pai.addSon(new TNojo(pai,nivel,false, no, pai.getMyNumber() + "." + Integer.toString(number)));
+
+						new arvoreGrafo().Gerar(nivel-1, pai.getMySon(number), true, changeSymbol(symbol));
+						
 						number++;
-						no[i][j] = '0';
+						no[i][j] = '.';
 					}
 				}
 			}
 			
 			
-			/*pai.print();
-			if(number != 0) {
-				Gerar(8, pai.getMySon(0), true);
-				number = -1;
-			}else {
-				System.exit(0);
-			}*/
-			
-		//}
+			gravarArq.printf(pai.getMeString());
+			gravarArq.printf("\n");
+
+
 	}
 
 	private void saveChar() {
@@ -87,11 +109,11 @@ public class arvoreGrafo {
 		return false;
 	}
 	
-	private void changeSymbol() {
-		if(Symbol == 'X') {
-			Symbol = 'O';
+	private char changeSymbol(char symbol) {
+		if(symbol == 'X') {
+			return 'O';
 		}else {
-			Symbol = 'X';
+			return 'X';
 		}
 	}
 	
