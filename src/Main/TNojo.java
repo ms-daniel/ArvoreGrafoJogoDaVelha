@@ -75,6 +75,18 @@ public class TNojo {
 		return me;
 	}
 	
+	public String getMeStringToCSV() {
+		String me = myNumber + "\n";
+		
+		for(int i = 0; i < 3; i++) { //percorrer a matriz de caracteres
+			for(int j = 0; j < 3; j++) {
+				me += this.no[i][j];
+			}
+			me += ";";
+		}
+		return me;
+	}
+	
 	public void printFilhos() {
 		System.out.println(maxSons);
 	}

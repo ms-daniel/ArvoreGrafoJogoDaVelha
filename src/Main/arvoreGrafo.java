@@ -21,7 +21,7 @@ public class arvoreGrafo {
 	
 	public void createArq() {
 		try {
-			arq = new FileWriter("arquivo.txt");
+			arq = new FileWriter("arquivo2.txt");
 			gravarArq = new PrintWriter(arq);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -70,7 +70,7 @@ public class arvoreGrafo {
 		
 		if(pai != anterior){
 			pai.print();
-			gravarArq.printf(pai.getMeString());
+			gravarArq.printf(pai.getMeStringToCSV());
 			gravarArq.printf("\n");
 			gravarArq.flush();
 			anterior = pai;
