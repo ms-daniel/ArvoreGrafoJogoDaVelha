@@ -10,23 +10,26 @@ public class TNojo {
 	private boolean terminal;
 	
 	public TNojo(TNojo pai, int filhos, boolean finau, char nojo[][], String number) {
-		this.myNumber = number;
+		this.myNumber = number + " ";
+		
 		
 		this.pai = pai;
 		saveChar(nojo);
-		//if(!finau) {
+		
+		if(finau) {
+			this.maxSons = 0;
+			this.sons = null;
+			this.terminal = true;
+		}else {
 			this.maxSons = filhos;
 			this.sons = new TNojo[filhos];
 			this.terminal = false;
-		/*}else {
-			this.terminal = true;
-			this.maxSons = 0;
-		}*/
+		}
 	}
 	
 	//return true if the son was added and false if not 
 	public boolean addSon(TNojo son) {
-		if(maxSons>indSon) {
+		if(maxSons>indSon & !terminal) {
 			this.sons[indSon] = son;
 			indSon++;
 			return true;
@@ -102,10 +105,17 @@ public class TNojo {
 	}
 	
 	public TNojo getMySon(int index) {
-		return sons[index];
+		if(sons == null)
+			return null;
+		else
+			return sons[index];
 	}
 	
 	public int qtSons() {
 		return sons.length;
+	}
+	
+	public boolean terminal() {
+		return this.terminal;
 	}
 }
