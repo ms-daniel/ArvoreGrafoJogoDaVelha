@@ -76,14 +76,14 @@ public class TNojo {
 	}
 	
 	public String getMeStringToCSV() {
-		String me = myNumber + "\n";
+		String me = myNumber + ";";
 		
 		for(int i = 0; i < 3; i++) { //percorrer a matriz de caracteres
 			for(int j = 0; j < 3; j++) {
 				me += this.no[i][j];
 			}
-			me += ";";
 		}
+		me += ";";
 		return me;
 	}
 	

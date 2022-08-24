@@ -16,13 +16,30 @@ public class arvoreGrafo {
 	
 	private static TNojo anterior = null;
 	
-	private static FileWriter arq;
-	private static PrintWriter gravarArq;
+	private static FileWriter arq1;
+	private static FileWriter arq2;
+	private static FileWriter arq3;
+	private static FileWriter arq4;
+	private static FileWriter arq5;
+	private static FileWriter arq6;
+	private static FileWriter arq7;
+	private static FileWriter arq8;
+	private static FileWriter arq9;
+	
+	
+	private PrintWriter gravarArq;
 	
 	public void createArq() {
 		try {
-			arq = new FileWriter("arquivo2.txt");
-			gravarArq = new PrintWriter(arq);
+			arq1 = new FileWriter("estados/estadosJdV - 1.csv");
+			arq2 = new FileWriter("estados/estadosJdV - 2.csv");
+			arq3 = new FileWriter("estados/estadosJdV - 3.csv");
+			arq4 = new FileWriter("estados/estadosJdV - 4.csv");
+			arq5 = new FileWriter("estados/estadosJdV - 5.csv");
+			arq6 = new FileWriter("estados/estadosJdV - 6.csv");
+			arq7 = new FileWriter("estados/estadosJdV - 7.csv");
+			arq8 = new FileWriter("estados/estadosJdV - 8.csv");
+			arq9 = new FileWriter("estados/estadosJdV - 9.csv");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,7 +50,16 @@ public class arvoreGrafo {
 	
 	public void closeArq() {
 		try {
-			arq.close();
+			arq1.close();
+			arq2.close();
+			arq3.close();
+			arq4.close();
+			arq5.close();
+			arq6.close();
+			arq7.close();
+			arq8.close();
+			arq9.close();
+			
 			gravarArq.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -53,10 +79,7 @@ public class arvoreGrafo {
 				if(no[i][j] != 'X' && no[i][j] != 'O' && number <= nivel) {
 					no[i][j] = symbol;
 					
-					
-					
 					if(!pai.terminal()) {
-						//System.out.println(verificaGanhador());
 						
 						pai.addSon(new TNojo(pai,nivel, verificaGanhador(), no, pai.getMyNumber().replace(" ", "") + "." + Integer.toString(number)));
 						
@@ -68,15 +91,11 @@ public class arvoreGrafo {
 			}
 		}
 		
-		if(pai != anterior){
-			pai.print();
-			gravarArq.printf(pai.getMeStringToCSV());
-			gravarArq.printf("\n");
-			gravarArq.flush();
-			anterior = pai;
-		}
+		gravarArq();
 		
-		
+		gravarArq.printf(pai.getMeStringToCSV());
+		gravarArq.printf("\n");
+		gravarArq.flush();
 
 
 	}
@@ -102,16 +121,6 @@ public class arvoreGrafo {
 		}
 	}
 	
-	public void printPai() {
-		System.out.println("-------");
-		
-		for(int i = 0; i < 3; i++) { //percorrer a matriz de caracteres
-			for(int j = 0; j < 3; j++) {
-				
-			}
-			System.out.println();
-		}
-	}
 	
 	public TNojo getPai() {
 		return pai;
@@ -147,6 +156,57 @@ public class arvoreGrafo {
 		}else {
 			return 'X';
 		}
+	}
+	
+	private void gravarArq() {
+		String all = "";
+		
+		for(int i = 0; i < 3; i++) { //percorrer a matriz de caracteres
+			for(int j = 0; j < 3; j++) {
+				if(no[i][j] != '.')
+					all += no[i][j];
+			}
+		}
+
+		int nArq = all.length();
+		
+		switch(nArq) {
+			case 1:
+				gravarArq = new PrintWriter(arq1);
+				break;
+			case 2:
+				gravarArq = new PrintWriter(arq2);
+				break;
+			case 3:
+				gravarArq = new PrintWriter(arq3);
+				break;
+			case 4:
+				gravarArq = new PrintWriter(arq4);
+				break;
+			case 5:
+				gravarArq = new PrintWriter(arq5);
+				break;
+			case 6:
+				gravarArq = new PrintWriter(arq6);
+				break;
+			case 7:
+				gravarArq = new PrintWriter(arq7);
+				break;
+			case 8:
+				gravarArq = new PrintWriter(arq8);
+				break;
+			case 9:
+				gravarArq = new PrintWriter(arq9);
+				break;
+			default:
+				break;
+
+		}
+
+	
+		
+		
+		//gravarArq = new PrintWriter(arq1);
 	}
 	
 }
